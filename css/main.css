@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+}
+
+.drag-area {
+    width: 700px;
+    height: 500px;
+    border-radius: .5em;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+        font-size: 2em;
+        font-weight: 800;
+        color: rgb(9, 13, 20);
+    }
+
+    span {
+        font-size: 1.4em;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 1.1em;
+        border: 0;
+        outline: none;
+        background-color: hsl(226, 100%, 51%);
+        color: hsl(0, 0%, 100%);
+        border-radius: .3em;
+        font-weight: 500;
+        margin-top: 1em;
+        cursor: pointer;
+    }
+}
+
+.fill-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+    border: 1px solid hsl(0, 0%, 80%);
+}
+
+.drag-area.active {
+    background-color: hsl(180, 2%, 75%);
+    color: rgb(9, 13, 20);
+}
+
+#preview {
+    margin-top: 1em;
+}
+
+.satatus-text {
+    padding: 0 1em;
+}
+
+.sucsses {
+    color: hsl(86, 100%, 48%);
+}
+
+.failure {
+    color: hsl(0, 100%, 50%)
+}
