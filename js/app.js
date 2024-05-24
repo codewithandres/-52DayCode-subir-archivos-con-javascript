@@ -62,9 +62,9 @@ const procesFile = file => {
         const id = `file-${Math.random().toString(32).substring(7)}`
 
         fileReader.addEventListener('load', event => {
-
             const fileUrl = fileReader.result;
-            const img = `<div id="${id} class="file-container">
+
+            const img = `<div id="${id} class="fill-container">
                 <img src="${fileUrl}" alt ="${file.name}" width="50"/>
                 <div class="status">
                     <span>${file.name}</span>
@@ -76,9 +76,29 @@ const procesFile = file => {
         });
 
         fileReader.readAsDataURL(file);
-        //uploadFile(file, id);
+        uploadFile(file, id);
     } else {
         //archivo no valido
         alert('archivo no valido')
     };
-}; 
+};
+
+const uploadFile = async file => {
+    const formData = new FormData();
+
+    formData.append('file', file);
+    try {
+        const response = await fetch('http://localhost:3000/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const responseText = await response.text();
+        console.log(responseText);
+
+        document.querySelector(`#${id} .status-text`).innerHTML = `<span class="sucsses">Archivo subido correctamente 😊</span>`;
+    } catch (error) {
+        document.querySelector(`#${id} .status-text`).innerHTML = `<span class="failure">Opps ocurrio un error al subir 😥</span>`;
+
+    }
+};
