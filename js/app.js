@@ -15,3 +15,70 @@ input.addEventListener('change', event => {
     showFile();
     dropArea.classList.remove('active')
 });
+
+//eventos drag and drop 
+dropArea.addEventListener('dragover', event => {
+    event.preventDefault();
+
+    dropArea.classList.add('active');
+    dropArea.textContent = 'Suelta para subir los archivos';
+});
+
+dropArea.addEventListener('dragleave', event => {
+    event.preventDefault();
+
+    dropArea.classList.remove('active');
+    dropArea.textContent = 'Arrasta y suelta la imagen';
+});
+
+dropArea.addEventListener('drop', event => {
+    event.preventDefault();
+
+    files = event.dataTransfer.files;
+    showFile(files);
+
+    dropArea.classList.add('active');
+    dropArea.textContent = 'Suelta para subir los archivos';
+});
+
+const showFile = files => {
+    if (files.length === undefined) {
+        procesFile(files)
+    } else {
+
+        for (const file of files) {
+            procesFile(file)
+        };
+    };
+};
+
+const procesFile = file => {
+    const docType = file.type;
+    const validExtencion = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    if (validExtencion.includes(docType)) {
+        //archivo valido
+        const fileReader = new FileReader();
+        const id = `file-${Math.random().toString(32).substring(7)}`
+
+        fileReader.addEventListener('load', event => {
+
+            const fileUrl = fileReader.result;
+            const img = `<div id="${id} class="file-container">
+                <img src="${fileUrl}" alt ="${file.name}" width="50"/>
+                <div class="status">
+                    <span>${file.name}</span>
+                    <span class="status-text"> louding... </span>
+                </div>
+            </div>`;
+            const html = document.querySelector('#preview').innerHTML;
+            document.querySelector('#preview').innerHTML = img + html;
+        });
+
+        fileReader.readAsDataURL(file);
+        //uploadFile(file, id);
+    } else {
+        //archivo no valido
+        alert('archivo no valido')
+    };
+}; 
